@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Howlr Packet Sentinel by Rudy.isk
+Howlr Packet Sentinel by howlerlab rudy.isk
 =====================
 
 Passive packet capture and PCAP triage for networking study, SOC work,

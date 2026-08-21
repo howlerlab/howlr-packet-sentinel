@@ -556,12 +556,22 @@ class CaptureStats:
         if destination_ip:
             self.destination_ips[destination_ip] += 1
 
+        source_port = record.get("source_port")
         destination_port = record.get("destination_port")
+
         if destination_port is not None:
             self.destination_ports[int(destination_port)] += 1
+
+        service = ""
+
+        if destination_port is not None:
             service = service_name(int(destination_port))
-            if service:
-                self.services[service] += 1
+
+        if not service and source_port is not None:
+            service = service_name(int(source_port))
+
+        if service:
+            self.services[service] += 1
 
         tcp_event = record.get("tcp_event")
         if tcp_event:

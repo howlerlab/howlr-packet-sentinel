@@ -4,100 +4,120 @@ All notable changes to Howlr Packet Sentinel are documented here.
 
 ---
 
-## [Unreleased] - v0.2.0 Development
+## [0.2.0] - 2026-08-21
 
 ### Added
 
-- `--version`.
-- CSV export with `--csv-out`.
-- Automatic timestamped PCAP, JSONL and CSV output with `--session`.
-- Hunt mode with `--hunt`.
-- Direction labels for `LAN`, `IN`, `OUT`, `TRANSIT`, `MULTICAST` and `BROADCAST`.
-- Readable TCP flag names.
-- TCP event labels including `SYN`, `SYN-ACK`, `ACK`, `PSH-ACK`, `RST` and `FIN`.
-- Basic SYN scan heuristics:
+- Added `--version` command.
+- Added improved `--list-interfaces` interface discovery.
+- Added traffic direction classification:
+  - `IN`
+  - `OUT`
+  - `LAN`
+  - `MULTICAST`
+  - `BROADCAST`
+  - `TRANSIT`
+- Added support for one or more local networks using `--local-network`.
+- Added common TCP/UDP service identification.
+- Added readable TCP event classification including:
+  - `SYN`
+  - `SYN-ACK`
+  - `ACK`
+  - `PSH-ACK`
+  - `FIN`
+  - `RST`
+- Added DNS and mDNS query/response analysis.
+- Added cleartext HTTP metadata extraction:
+  - HTTP method
+  - Host header
+  - URI
+- Added security-focused triage observations:
+  - `TCP_SYN`
+  - `TCP_RST`
+  - `ARP_REPLY`
+  - `ARP_MAC_CHANGE`
+  - `DNS_ERROR_RCODE`
+  - `CLEARTEXT_SERVICE`
+  - `CLEARTEXT_HTTP`
   - `POSSIBLE_PORT_SCAN`
-  - `POSSIBLE_HOST_SCAN`
-  - `POSSIBLE_SYN_SCAN`
-- ARP IP-to-MAC mapping tracking.
-- `ARP_MAC_CHANGE` observation.
-- DNS query-type names.
-- DNS response-code names such as `NOERROR` and `NXDOMAIN`.
-- Readable ICMP type names.
-- Cleartext HTTP request metadata parsing for supported HTTP traffic.
-- Packet severity labels: `NORMAL`, `INFO`, `NOTICE`, `WARNING`.
-- Expanded statistics for bytes, duration, packet rate, directions, destinations, services, TCP events and DNS queries.
+- Added ARP IP-to-MAC mapping change detection.
+- Added lightweight TCP SYN scan heuristic.
+- Added configurable `--scan-threshold` and `--scan-window`.
+- Added `--hunt` mode to display only packets containing observations.
+- Added PCAP export using `--pcap-out`.
+- Added structured JSONL export using `--jsonl-out`.
+- Added structured CSV export using `--csv-out`.
+- Added `--session` mode for automatic timestamped PCAP, JSONL and CSV output.
+- Added `--quiet` mode for summary/output-only operation.
+- Added expanded capture statistics including:
+  - bytes analysed
+  - capture duration
+  - packet rate
+  - protocol counts
+  - traffic directions
+  - source and destination IPs
+  - destination ports
+  - services
+  - TCP events
+  - DNS queries
+  - observations
 
 ### Changed
 
-- Improved console packet formatting.
-- TCP flags are displayed as readable names instead of only compact Scapy flag letters.
-- Multicast traffic is classified separately from ordinary outbound traffic.
-- Capture summaries provide more triage context.
-- Runtime output directories are created automatically when required.
-- Generated `captures/` and `output/` content remains excluded from Git.
-- `--read` and `--interface` are mutually exclusive.
-- Documentation updated for v0.2.0 installation, operation and troubleshooting.
+- Expanded packet output with severity levels and traffic direction.
+- Improved protocol and service labelling.
+- Improved TCP flag presentation.
+- Improved DNS output.
+- Improved capture summaries.
+- Improved inbound and outbound service counting.
+- Reworked `README.md` with simpler one-line commands and additional practical examples.
+- Updated documentation to encourage interface discovery using `--list-interfaces` rather than assuming an interface name.
+- Documented Windows and Linux/Kali usage separately where required.
+- Documented current v0.2 limitation that numeric interface indexes are informational and cannot be supplied directly to `-i`.
 
 ### Validated
 
-Manual testing has confirmed:
+v0.2.0 was manually tested on Windows and Kali Linux.
 
-- `--version`
-- CLI help
-- interface listing
-- Windows live capture
-- IPv4 and IPv6 parsing
-- TCP and UDP parsing
-- ARP parsing
-- DNS parsing
-- service labels
-- TCP event labels
-- `LAN`, `IN`, `OUT` and `MULTICAST` classification
+Validation included:
+
+- live capture
+- interface discovery
+- IPv4 and IPv6
+- TCP and UDP
+- ARP
+- DNS and mDNS
+- traffic direction classification
+- TCP event classification
+- service identification
+- hunt mode
+- cleartext HTTP detection
+- HTTP method, Host and URI extraction
+- ARP MAC-change detection
+- TCP SYN scan detection
 - PCAP export
 - JSONL export
 - CSV export
-- `--session`
-- offline PCAP re-analysis
-- quiet summary mode
-- enhanced statistics
+- session capture
+- offline PCAP replay
+- quiet mode
+- capture summaries
 
-### Still to Validate Before Release
+### Notes
 
-- deliberate `--hunt` workflow testing
-- controlled port-scan heuristic detection
-- controlled host-scan heuristic detection
-- ARP MAC-change observation
-- cleartext HTTP request metadata
-- Kali/Linux live-capture regression testing for v0.2.0
+Security observations generated by Howlr Packet Sentinel are triage hints and are not proof of malicious activity.
 
 ---
 
-## [0.1.0] - Initial Release
+## [0.1.0] - 2026-07-28
 
 ### Added
 
-- Initial Scapy-based passive packet-capture tool.
-- Live packet capture.
-- Offline PCAP and PCAPNG analysis.
-- Ethernet and ARP summaries.
-- IPv4 and IPv6 summaries.
-- TCP, UDP, ICMP and ICMPv6 summaries.
-- DNS metadata parsing.
-- DHCP message-type parsing.
-- Common service-name labels.
-- Basic TCP SYN observation.
-- NULL and XMAS scan-pattern observations.
-- IP-fragment observation.
-- DNS error-code observation.
-- Cleartext service-port observation.
-- Configurable packet count and timeout.
-- BPF capture filters.
-- Local CIDR direction classification.
-- PCAP export.
-- JSONL export.
-- Protocol and endpoint statistics.
-- Quiet summary mode.
-- Windows and Kali/Linux support.
-- MIT License.
-- GitHub repository and project documentation.
+- Initial Howlr Packet Sentinel release.
+- Live packet capture using Scapy.
+- Offline PCAP analysis.
+- Interface selection.
+- BPF filtering.
+- Packet-count and timeout controls.
+- Basic Ethernet, ARP, IPv4, IPv6, TCP, UDP, ICMP and DNS parsing.
+- Basic capture statistics.
